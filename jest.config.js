@@ -1,5 +1,6 @@
-const {defaults} = require('jest-config');
-module.exports = {
-	...defaults,
+const nextJest = require('next/jest');
+
+module.exports = nextJest({dir: './'})({
+	testEnvironment: 'node',
 	resolver: `${__dirname}/jest-resolver.js`,
-};
+});

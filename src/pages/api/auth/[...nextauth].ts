@@ -1,7 +1,6 @@
 import type {NextAuthOptions} from 'next-auth';
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {MongoDBAdapter} from '@next-auth/mongodb-adapter';
-import mongoose from 'mongoose';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github';
@@ -44,12 +43,7 @@ if (process.env.VERCEL_ENV === 'preview') {
 					userName: profile.login,
 					email: profile.email,
 					image: profile.avatar_url,
-					ingredients: [
-						{
-							type: mongoose.Schema.Types.ObjectId,
-							ref: 'Ingredients',
-						},
-					],
+					ingredients: [],
 					createdAt: date,
 				};
 			},
@@ -61,9 +55,13 @@ export const authOptions: NextAuthOptions = {
 	providers,
 	debug: process.env.NODE_ENV === 'development',
 };
-export default function handler(request: NextApiRequest, response: NextApiResponse) {
-	return NextAuth(request, response, {
+export function getAuthOptions(): NextAuthOptions {
+	return {
 		...authOptions,
 		adapter: MongoDBAdapter(getClientPromise()),
-	});
+	};
+}
+
+export default function handler(request: NextApiRequest, response: NextApiResponse) {
+	return NextAuth(request, response, getAuthOptions());
 }
