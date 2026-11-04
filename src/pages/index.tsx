@@ -1,0 +1,44 @@
+import {useEffect} from 'react';
+
+import Login from '../components/Login';
+import cocktailsStore from '../hooks/cocktailsStore';
+import ingredientsStore from '../hooks/ingredientsStore';
+
+export default function HomePage() {
+	const ingredients = ingredientsStore(state => state.ingredients);
+	const fetchIngredients = ingredientsStore(state => state.fetchIngredients);
+	const fetchCocktails = cocktailsStore(state => state.fetchCocktails);
+
+	const imageURLsToPreload = ingredients.map(ingredient => ingredient.image);
+
+	useEffect(() => {
+		fetchIngredients('/api/mongoIngredients');
+	}, [fetchIngredients]);
+
+	useEffect(() => {
+		fetchCocktails('/api/cocktails');
+	}, [fetchCocktails]);
+
+	function prefetchImage(url: string) {
+		const img = new Image();
+		img.src = url;
+	}
+
+	imageURLsToPreload.forEach(url => {
+		prefetchImage(url);
+	});
+
+	return (
+		<>
+			<video
+				autoPlay
+				loop
+				muted
+				style={{position: 'absolute', objectFit: 'fill', width: '100%', height: '100%'}}
+			>
+				<source src="/loginbg.mp4" type="video/mp4"></source>
+			</video>
+			<Login />
+		</>
+	);
+}
