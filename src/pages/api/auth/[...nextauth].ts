@@ -39,7 +39,7 @@ if (process.env.VERCEL_ENV === 'preview') {
 			profile(profile) {
 				return {
 					id: String(profile.id),
-					name: profile.name,
+					name: profile.name?.trim() || profile.login,
 					userName: profile.login,
 					email: profile.email,
 					image: profile.avatar_url,
@@ -53,6 +53,15 @@ if (process.env.VERCEL_ENV === 'preview') {
 
 export const authOptions: NextAuthOptions = {
 	providers,
+	callbacks: {
+		session({session, user}) {
+			const storedUser = user as typeof user & {userName?: string};
+			if (session.user && !session.user.name?.trim()) {
+				session.user.name = storedUser.userName || 'GitHub user';
+			}
+			return session;
+		},
+	},
 	debug: process.env.NODE_ENV === 'development',
 };
 export function getAuthOptions(): NextAuthOptions {

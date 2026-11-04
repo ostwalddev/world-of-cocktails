@@ -7,13 +7,17 @@ import styled from 'styled-components';
 import Layout from '../components/Layout';
 import {AccountWrapper} from '../components/styled/AccountWrapper.styled';
 import {StyledLogout} from '../components/styled/Login.styled';
+const StyledImage = styled(Image)`
+	border-radius: 50%;
+`;
+
+const ProfileImage = styled.div`
+	align-self: center;
+	width: 20%;
+`;
+
 export default function AboutPage() {
 	const {data: session} = useSession();
-	const StyledImage = styled(Image)`
-		position: absolute;
-		bottom: 10px;
-		border-radius: 50%;
-	`;
 
 	return (
 		<Layout>
@@ -23,12 +27,17 @@ export default function AboutPage() {
 			</Head>
 			<AccountWrapper>
 				{session?.user?.image && (
-					<StyledImage
-						src={session?.user?.image}
-						alt="Profile Picture"
-						width={200}
-						height={200}
-					></StyledImage>
+					<ProfileImage>
+						<StyledImage
+							src={session?.user?.image}
+							alt="Profile Picture"
+							width={200}
+							height={200}
+							layout="responsive"
+							objectFit="contain"
+							sizes="(orientation: landscape) 10vw, 20vw"
+						></StyledImage>
+					</ProfileImage>
 				)}
 				<p>{`name: ${session?.user?.name}`}</p>
 				<p>{`email: ${session?.user?.email}`}</p>
