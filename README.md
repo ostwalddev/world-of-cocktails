@@ -80,3 +80,4 @@ Webpack and the original Babel configuration are retained for styled-components.
 The legacy image component preserves the original image layout while links use
 the modern Next.js API. Database connections initialize on request, allowing
 builds without production secrets.
+# world-of-cocktails
