@@ -1,24 +1,32 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
-export const MoreButton = styled.button<{saved?: boolean; expanded?: boolean; top?: string}>`
-	display: inline-block;
+export const MoreButton = styled(Link)`
+	display: flex;
 	position: fixed;
-	top: ${props => props.top};
+	top: 70%;
 	right: 7%;
-	width: 4.5em;
-	height: 4.5em;
-	padding: 5px 5px;
-	border: none;
-	border-radius: 400px;
-	outline: none;
+	align-items: center;
+	justify-content: center;
+	width: min(6rem, 64.5vw);
+	aspect-ratio: 1;
+	padding: 0.75rem;
+	border-radius: 50%;
 	background-color: #2d2826;
 	color: white;
-	font-size: 12px;
+	font-size: 0.75rem;
 	font-weight: 700;
-	letter-spacing: 2px;
-	line-height: 1;
+	line-height: 1.3;
 	text-align: center;
-	text-transform: uppercase;
-	white-space: normal;
+	text-decoration: none;
 	cursor: pointer;
+
+	&:visited {
+		color: white;
+	}
+
+	&:focus-visible {
+		outline: 3px solid currentColor;
+		outline-offset: -6px;
+	}
 `;

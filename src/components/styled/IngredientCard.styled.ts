@@ -1,14 +1,18 @@
 import {motion} from 'framer-motion';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+
+import {TextWrapper} from './TextWrapper.styled';
 
 export const StyledIngredientGrid = styled.ul`
 	display: grid;
-	grid-auto-flow: dense;
-	grid-auto-rows: 190px;
+	position: relative;
+	overflow: hidden;
+	grid-auto-flow: row;
+	grid-auto-rows: 1px;
 	grid-column-gap: 15px;
-	grid-row-gap: 15px;
+	grid-row-gap: 0;
 	grid-template-columns: repeat(auto-fit, minmax(100px, 100px));
-	align-content: center;
+	align-content: start;
 	width: 100%;
 	margin: 0 auto;
 	padding-right: 2%;
@@ -25,16 +29,31 @@ export const StyledIngredientCard = styled(motion.li)<{
 	position: relative;
 	flex-direction: column;
 	width: 100%;
+	align-self: start;
+	grid-row-end: span 205;
 	row-gap: 10px;
 	border-radius: 0.55rem;
 	background-color: ${props => props.color};
 	${({expanded}) =>
 		expanded
-			? `
-		padding: 1em;
-		grid-column: auto / span 2;
-		grid-row: auto / span 3;`
-			: `padding: 0.4em`};
+			? css`
+				height: max-content;
+				max-height: 600px;
+				padding: 1em;
+				grid-column: auto / span 2;
+				grid-row-end: span 615;
+
+				> div {
+					flex-shrink: 0;
+				}
+
+				> ${TextWrapper} {
+					flex-shrink: 1;
+					min-height: 0;
+					max-height: none;
+				}
+			`
+			: `height: 190px; padding: 0.4em`};
 	${({clicked}) =>
 		clicked
 			? `	

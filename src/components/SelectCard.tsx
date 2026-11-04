@@ -16,6 +16,10 @@ const StyledImage = styled(Image)`
 	cursor: pointer;
 `;
 
+const Thumbnail = styled(ImageWrapper)<{$expanded: boolean}>`
+	position: ${({$expanded}) => ($expanded ? 'relative' : 'static')};
+`;
+
 export default function SelectCard({
 	ingredient,
 	isExpanded,
@@ -46,7 +50,7 @@ export default function SelectCard({
 					{ingredient.name}
 				</StyledTitle>
 			</TitleWrapper>
-			<ImageWrapper>
+			<Thumbnail $expanded={isExpanded}>
 				<StyledImage
 					layout="responsive"
 					src={ingredient.image}
@@ -56,20 +60,20 @@ export default function SelectCard({
 					quality={30}
 					priority={true}
 				/>
-			</ImageWrapper>
-			<StyledButton
-				expanded={isExpanded ? true : undefined}
-				onClick={event => {
-					event.stopPropagation();
-					if (!clicked) {
-						addMoreIngredients(moreIngredients, ingredient._id);
-					} else {
-						removeMoreIngredients(moreIngredients, ingredient._id);
-					}
-				}}
-			>
-				{clicked ? 'saved' : 'save'}
-			</StyledButton>
+				<StyledButton
+					expanded={isExpanded ? true : undefined}
+					onClick={event => {
+						event.stopPropagation();
+						if (!clicked) {
+							addMoreIngredients(moreIngredients, ingredient._id);
+						} else {
+							removeMoreIngredients(moreIngredients, ingredient._id);
+						}
+					}}
+				>
+					{clicked ? 'saved' : 'save'}
+				</StyledButton>
+			</Thumbnail>
 			{isExpanded ? (
 				<TextWrapper
 					key={ingredient.name}

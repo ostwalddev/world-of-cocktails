@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import Layout from '../components/Layout';
 import Search from '../components/Search';
 import SelectCard from '../components/SelectCard';
-import {StyledIngredientGrid} from '../components/styled/IngredientCard.styled';
+import IngredientGrid from '../components/IngredientGrid';
 import ingredientsStore from '../hooks/ingredientsStore';
 import useStore from '../hooks/useStore';
 
@@ -27,7 +27,7 @@ export default function BarPage() {
 	return (
 		<Layout>
 			<Search />
-			<StyledIngredientGrid>
+			<IngredientGrid>
 				{ingredients?.map(ingredient => {
 					const searchQuery = searchItem.toString().toLowerCase();
 					const ingredientName = ingredient.name.toLowerCase();
@@ -46,7 +46,7 @@ export default function BarPage() {
 						);
 					} else return null;
 				})}
-			</StyledIngredientGrid>
+			</IngredientGrid>
 		</Layout>
 	);
 }

@@ -1,11 +1,10 @@
 import {useSession} from 'next-auth/react';
-import Link from 'next/link';
 import {useEffect, useState} from 'react';
 
 import IngredientCard from '../components/IngredientCard';
 import Layout from '../components/Layout';
 import Search from '../components/Search';
-import {StyledIngredientGrid} from '../components/styled/IngredientCard.styled';
+import IngredientGrid from '../components/IngredientGrid';
 import {MoreButton} from '../components/styled/MoreButton.styled';
 import ingredientsStore from '../hooks/ingredientsStore';
 import useStore from '../hooks/useStore';
@@ -31,7 +30,7 @@ export default function BarPage() {
 	return (
 		<Layout>
 			<Search />
-			<StyledIngredientGrid>
+			<IngredientGrid>
 				{savedIngredients?.length === 0 && (
 					<>
 						<br />
@@ -59,12 +58,8 @@ export default function BarPage() {
 						);
 					} else return null;
 				})}
-			</StyledIngredientGrid>
-			<MoreButton top="70%">
-				<Link href="/select">
-					<h2>ADD</h2>
-				</Link>
-			</MoreButton>
+			</IngredientGrid>
+			<MoreButton href="/select">add new ingredients</MoreButton>
 		</Layout>
 	);
 }
