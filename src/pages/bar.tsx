@@ -1,6 +1,6 @@
 import {useSession} from 'next-auth/react';
 import Link from 'next/link';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 import IngredientCard from '../components/IngredientCard';
 import Layout from '../components/Layout';
@@ -11,6 +11,7 @@ import ingredientsStore from '../hooks/ingredientsStore';
 import useStore from '../hooks/useStore';
 
 export default function BarPage() {
+	const [expandedIngredientId, setExpandedIngredientId] = useState<string | null>(null);
 	const {data: session} = useSession();
 	const fetchSavedIngredients = ingredientsStore(state => state.fetchSavedIngredients);
 	const savedIngredients = useStore(ingredientsStore, state => state.savedIngredients);
@@ -48,6 +49,12 @@ export default function BarPage() {
 							<IngredientCard
 								key={ingredient._id}
 								ingredient={ingredient}
+								isExpanded={expandedIngredientId === ingredient._id}
+								onToggle={() =>
+									setExpandedIngredientId(current =>
+										current === ingredient._id ? null : ingredient._id
+									)
+								}
 							></IngredientCard>
 						);
 					} else return null;

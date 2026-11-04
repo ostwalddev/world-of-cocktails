@@ -1,6 +1,5 @@
 import type {Ingredient} from '../types/domain';
 import Image from 'next/legacy/image';
-import {useState} from 'react';
 import styled from 'styled-components';
 
 import ingredientsStore from '../hooks/ingredientsStore';
@@ -17,20 +16,24 @@ const StyledImage = styled(Image)`
 	cursor: pointer;
 `;
 
-export default function SelectCard({ingredient}: {ingredient: Ingredient}) {
+export default function SelectCard({
+	ingredient,
+	isExpanded,
+	onToggle,
+}: {
+	ingredient: Ingredient;
+	isExpanded: boolean;
+	onToggle: () => void;
+}) {
 	const addMoreIngredients = ingredientsStore(state => state.addMoreIngredients);
 	const removeMoreIngredients = ingredientsStore(state => state.removeMoreIngredients);
 	const moreIngredients = ingredientsStore(state => state.moreIngredients);
 
 	const clicked = moreIngredients?.includes(ingredient._id);
 
-	const [isExpanded, setIsExpanded] = useState(false);
-
 	return (
 		<StyledIngredientCard
-			onClick={() => {
-				setIsExpanded(!isExpanded);
-			}}
+			onClick={onToggle}
 			key={ingredient._id}
 			color={ingredient.color}
 			clicked={clicked ? true : undefined}

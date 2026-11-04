@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 import Layout from '../components/Layout';
 import Search from '../components/Search';
@@ -8,6 +8,7 @@ import ingredientsStore from '../hooks/ingredientsStore';
 import useStore from '../hooks/useStore';
 
 export default function BarPage() {
+	const [expandedIngredientId, setExpandedIngredientId] = useState<string | null>(null);
 	const ingredients = useStore(ingredientsStore, state => state.ingredients);
 	const searchItem = ingredientsStore(state => state.searchItem);
 	const setSearchItem = ingredientsStore(state => state.setSearchItem);
@@ -32,7 +33,16 @@ export default function BarPage() {
 					const ingredientName = ingredient.name.toLowerCase();
 					if (ingredientName.startsWith(searchQuery)) {
 						return (
-							<SelectCard key={ingredient._id} ingredient={ingredient}></SelectCard>
+							<SelectCard
+								key={ingredient._id}
+								ingredient={ingredient}
+								isExpanded={expandedIngredientId === ingredient._id}
+								onToggle={() =>
+									setExpandedIngredientId(current =>
+										current === ingredient._id ? null : ingredient._id
+									)
+								}
+							/>
 						);
 					} else return null;
 				})}

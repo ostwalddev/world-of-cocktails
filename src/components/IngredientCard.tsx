@@ -1,7 +1,6 @@
 import type {Ingredient} from '../types/domain';
 import {useSession} from 'next-auth/react';
 import Image from 'next/legacy/image';
-import {useState} from 'react';
 import styled from 'styled-components';
 
 import ingredientsStore from '../hooks/ingredientsStore';
@@ -13,10 +12,17 @@ import {TextWrapper} from './styled/TextWrapper.styled';
 import {StyledTitle} from './styled/Title.styled';
 import {TitleWrapper} from './styled/TitleWrapper.styled';
 
-export default function IngredientCard({ingredient}: {ingredient: Ingredient}) {
+export default function IngredientCard({
+	ingredient,
+	isExpanded,
+	onToggle,
+}: {
+	ingredient: Ingredient;
+	isExpanded: boolean;
+	onToggle: () => void;
+}) {
 	const savedIngredients = ingredientsStore(state => state.savedIngredients);
 	const setSavedIngredients = ingredientsStore(state => state.setSavedIngredients);
-	const [isExpanded, setIsExpanded] = useState(false);
 	const {data: session} = useSession();
 
 	async function update() {
@@ -38,9 +44,7 @@ export default function IngredientCard({ingredient}: {ingredient: Ingredient}) {
 
 	return (
 		<StyledIngredientCard
-			onClick={() => {
-				setIsExpanded(!isExpanded);
-			}}
+			onClick={onToggle}
 			key={ingredient._id}
 			color={ingredient.color}
 			expanded={isExpanded ? true : undefined}
