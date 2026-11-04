@@ -10,4 +10,10 @@ export const CocktailsWrapper = styled.ul`
 	column-gap: 7px;
 	list-style: none;
 	row-gap: 10px;
+
+	> a,
+	> a:visited {
+		color: inherit;
+		text-decoration: none;
+	}
 `;
