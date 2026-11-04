@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const StyledHeader = styled.header`
 	display: flex;
+	align-items: center;
+	height: var(--navigation-height, 4rem);
 	justify-content: space-evenly;
 	margin-bottom: 1em;
 	padding: 1em;

@@ -7,21 +7,45 @@ import Header from './Header';
 import SelectFooter from './SelectFooter';
 
 const PageShell = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 100dvh;
+	--navigation-height: 4rem;
+	display: grid;
+	position: fixed;
+	inset: 0;
+	grid-template-rows: auto minmax(0, 1fr) auto;
 	overflow: hidden;
 
 	> header,
 	> footer {
-		flex-shrink: 0;
+		position: relative;
+		z-index: 10;
 	}
 
 	> main {
-		flex: 1;
 		min-height: 0;
+		min-width: 0;
 		padding-bottom: 1rem;
 		overflow-y: auto;
+		overscroll-behavior-y: contain;
+		scrollbar-width: thin;
+		scrollbar-color: #2d2826 #f7dda4;
+
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: #f7dda4;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border: 2px solid #f7dda4;
+			border-radius: 999px;
+			background: #2d2826;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background: #514640;
+		}
 	}
 `;
 

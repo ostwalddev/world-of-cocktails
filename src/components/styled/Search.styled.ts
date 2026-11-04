@@ -2,8 +2,12 @@ import styled from 'styled-components';
 
 export const SearchBar = styled.div`
 	display: flex;
+	position: sticky;
+	top: 0;
+	z-index: 5;
 	justify-content: space-evenly;
-	margin-bottom: 1em;
+	padding-bottom: 1em;
+	background-color: #f7dda4;
 `;
 
 export const SearchContainer = styled.div`

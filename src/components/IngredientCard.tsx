@@ -9,8 +9,7 @@ import {DeleteButton} from './styled/DeleteButton.styled copy';
 import {ImageWrapper} from './styled/ImageWrapper.styled';
 import {StyledIngredientCard} from './styled/IngredientCard.styled';
 import {TextWrapper} from './styled/TextWrapper.styled';
-import {StyledTitle} from './styled/Title.styled';
-import {TitleWrapper} from './styled/TitleWrapper.styled';
+import IngredientTitle from './IngredientTitle';
 
 export default function IngredientCard({
 	ingredient,
@@ -51,18 +50,24 @@ export default function IngredientCard({
 			transition={{layout: {duration: 1, type: 'spring'}}}
 			layout
 		>
-			<TitleWrapper>
-				<StyledTitle layout="position" expanded={isExpanded ? true : undefined}>
-					{ingredient.name}
-				</StyledTitle>
-			</TitleWrapper>
+			<IngredientTitle name={ingredient.name} expanded={isExpanded} />
 			<DeleteButton
+				title="remove ingredient"
+				aria-label={`Remove ${ingredient.name} from your bar`}
 				onClick={event => {
 					event.stopPropagation();
 					void update();
 				}}
 			>
-				X
+				<svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+					<path
+						d="M4 4L12 12M12 4L4 12"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeLinecap="round"
+					/>
+				</svg>
 			</DeleteButton>
 			<ImageWrapper>
 				<StyledImage

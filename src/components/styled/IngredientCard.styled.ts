@@ -34,6 +34,7 @@ export const StyledIngredientCard = styled(motion.li)<{
 	row-gap: 10px;
 	border-radius: 0.55rem;
 	background-color: ${props => props.color};
+	cursor: pointer;
 	${({expanded}) =>
 		expanded
 			? css`

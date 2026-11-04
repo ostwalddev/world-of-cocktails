@@ -9,7 +9,6 @@ export const StyledButton = styled.button<{saved?: boolean; expanded?: boolean; 
 	border: 1px solid;
 	border-radius: 400px;
 	border-color: white;
-	outline: none;
 	background-color: black;
 	color: white;
 	font-size: 12px;
@@ -20,6 +19,26 @@ export const StyledButton = styled.button<{saved?: boolean; expanded?: boolean; 
 	text-transform: uppercase;
 	white-space: normal;
 	cursor: pointer;
+	transition: outline-color 150ms ease, transform 100ms ease;
+	outline: 2px solid transparent;
+	outline-offset: 1px;
+
+	&:hover:not(:disabled),
+	&:focus-visible {
+		outline-color: #f7dda4;
+	}
+
+	&:active:not(:disabled) {
+		transform: scale(0.94);
+	}
+
+	&:disabled {
+		cursor: default;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
 	${({saved}) =>
 		saved
 			? `background-color: hsla(0, 0%, 0%, 0);
