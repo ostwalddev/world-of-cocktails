@@ -7,7 +7,8 @@ import useStore from '../hooks/useStore';
 
 import {StyledNav} from './styled/Nav.styled';
 
-export default function SelectFooter() {
+export default function SelectFooter({inline = false}: {inline?: boolean}) {
+	const Container = inline ? 'div' : 'footer';
 	const StyledLink = styled(Link)<{isActive?: boolean}>`
 		color: ${props => (props.isActive ? '#f7dda4' : 'black')};
 		font-family: 'Allenoire', serif;
@@ -37,7 +38,7 @@ export default function SelectFooter() {
 	}
 
 	return (
-		<footer>
+		<Container>
 			<StyledNav>
 				<LinkWrapper>
 					<StyledLink href={'/bar'}>Back</StyledLink>
@@ -48,6 +49,6 @@ export default function SelectFooter() {
 					</StyledLink>
 				</LinkWrapper>
 			</StyledNav>
-		</footer>
+		</Container>
 	);
 }

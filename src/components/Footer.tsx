@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 import {StyledNav} from './styled/Nav.styled';
 
-export default function Footer() {
+export default function Footer({inline = false}: {inline?: boolean}) {
+	const Container = inline ? 'div' : 'footer';
 	const router = useRouter();
 
 	const StyledLink = styled(Link)<{isActive?: boolean}>`
@@ -24,7 +25,7 @@ export default function Footer() {
 	`;
 
 	return (
-		<footer>
+		<Container>
 			<StyledNav>
 				<LinkWrapper isActive={router.pathname === '/bar' || router.pathname === '/select'}>
 					<StyledLink
@@ -55,6 +56,6 @@ export default function Footer() {
 					</StyledLink>
 				</LinkWrapper>
 			</StyledNav>
-		</footer>
+		</Container>
 	);
 }

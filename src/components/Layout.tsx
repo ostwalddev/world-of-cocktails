@@ -20,6 +20,14 @@ const PageShell = styled.div`
 		z-index: 10;
 	}
 
+	@media (orientation: landscape) {
+		grid-template-rows: auto minmax(0, 1fr);
+
+		> footer {
+			display: none;
+		}
+	}
+
 	> main {
 		min-height: 0;
 		min-width: 0;
